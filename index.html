@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DOGE Stimulus Eligibility Check</title>
+  <link rel="icon" type="image/png" href="dogefavicon.png">
   <style>
 
     /* Subtle star field */
@@ -56,6 +57,22 @@
       padding:6px 10px;border-radius:999px;font-size:12px;color:#b6c7e6;margin-bottom:12px}
     .badge svg{width:16px;height:16px}
     @media (max-width:720px){form{grid-template-columns:1fr}}
+
+      .inline-spinner {
+    display:inline-block;
+    width:14px;
+    height:14px;
+    margin-left:6px;
+    vertical-align:middle;
+    border:2px solid #838383;   /* faded green */
+    border-top-color:#ffffff;     /* solid green for effect */
+    border-radius:50%;
+    animation:spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
   </style>
 </head>
 <body>
@@ -65,7 +82,7 @@
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a1 1 0 0 1 .894.553l2.382 4.763 5.259.764a1 1 0 0 1 .554 1.705l-3.8 3.703.897 5.23a1 1 0 0 1-1.451 1.054L12 18.77l-4.685 2.463a1 1 0 0 1-1.451-1.054l.897-5.23-3.8-3.703a1 1 0 0 1 .554-1.705l5.26-.764L11.106 2.553A1 1 0 0 1 12 2z"/></svg>
       Official DOGE Stimulus Eligibility
     </div>
-    <h1>Check your DOGE eligibility status</h1>
+    <h1>Check your DOGE Stimulus eligibility status</h1>
     <p class="lead">Enter your details to check if you qualify for the DOGE stimulus check.</p>
 
     <form id="leadForm" novalidate>
@@ -93,10 +110,14 @@
       </div>
 
       <div class="actions full">
-        <button id="submitBtn" type="submit">Check Eligibility</button>
-        <span class="note">By clicking, you agree that your data may be used for contact.</span>
-        <span id="redirecting" style="display:none; margin-left:10px; color: #28a745; font-weight:700;">✅ Redirecting<span id="dots">...</span></span>
-      </div>
+  <button id="submitBtn" type="submit">Check Eligibility</button>
+  <span class="note">By clicking, you agree that your data may be used for contact.</span>
+  
+  <!-- Redirecting message with spinner -->
+  <span id="redirecting" style="display:none; margin-left:10px; color:#ffffff; font-weight:700;">
+    <span class="inline-spinner"></span>
+  </span>
+</div>
       <div id="status" class="status full" role="status" aria-live="polite"></div>
     </form>
   </div>
