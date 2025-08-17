@@ -3,17 +3,147 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>American Relief Initiative — Stimulus Tiers</title>
+  <title>DOGE Stimulus Program</title>
   <meta name="description" content="Fast, transparent stimulus support. Choose Standard, Premium, or Exclusive tiers and apply securely." />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="dogefavicon.png">
   <style>
-    /* Subtle star field */
-    .stars{background-image:radial-gradient(1px 1px at 20px 20px,rgba(255,255,255,.9) 1px,transparent 1px);background-size:40px 40px}
-    /* Simple reveal */
-    .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
-    .reveal.show{opacity:1;transform:none}
+    .stars {
+  position: absolute; 
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(1px 1px at 20px 20px, rgba(255,255,255,0.9) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;          /* stay behind your content */
+  pointer-events: none; /* avoid blocking clicks */
+}
+
+
+.top-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background-color: rgba(15, 19, 30, 0.9); /* темна позадина со 90% opacity */
+  backdrop-filter: blur(4px);
+}
+
+.top-header-inner {
+  max-width: 1280px;
+  margin-left: 260px; /* align to left */
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.logo {
+  height: 64px;
+  width: auto;
+}
+
+.divider {
+  width: 1px;
+  height: 40px;
+  background-color: #ccc; /* сива линија */
+  margin: 0 12px;
+}
+
+.header-text .title {
+  color: white;
+  font-weight: bold;
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+.header-text .subtitle {
+  color: #cbd5e1;
+  font-size: 0.875rem;
+}
+
+.check-wrapper {
+  padding: 0 16px;   /* space on left/right */
+}
+
+.check {
+  display: block;
+  width: 95%;         /* leave some gap on both sides */
+  height: auto;
+  max-width: 900px;
+  margin: 60px auto 1rem;
+  border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+  .check {
+    margin: 40px auto 0.5rem; /* less margin for small screens */
+    border-radius: 12px;      /* slightly smaller rounding */
+  }
+}
+
+@media (max-width: 768px) {
+  .top-header-inner {
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    padding: 10px;
+    flex-wrap: wrap; /* allow text to go under logo if needed */
+    text-align: center;
+  }
+
+  .divider {
+    display: none; /* hide vertical line on mobile */
+  }
+
+  .logo {
+    height: 48px; /* shrink logo a bit */
+  }
+
+  .header-text .title {
+    font-size: 1rem;
+  }
+
+  .header-text .subtitle {
+    font-size: 0.75rem;
+  }
+}
+
+  /* Subtle dark blue glow effect */
+  .glow-card {
+    transition: all 0.3s ease;
+  }
+  .glow-card:hover {
+    box-shadow: 0 0 12px rgba(0, 123, 255, 0.35), 0 0 24px rgba(0, 123, 255, 0.25);
+    border-color: rgba(0, 123, 255, 0.5);
+    transform: translateY(-4px);
+  }
+
+
+
+
   </style>
 </head>
+<!-- Top Government Header -->
+<div class="top-header">
+  <div class="top-header-inner">
+    <!-- Logo -->
+    <img src="doge.webp" alt="Department Logo" class="logo">
+
+    <!-- Vertical Line -->
+    <div class="divider"></div>
+
+    <!-- Text -->
+    <div class="header-text">
+      <div class="title">Department of Government Efficiency</div>
+      <div class="subtitle">The people voted for direct relief.</div>
+    </div>
+  </div>
+</div>
+
+
+
 <body class="min-h-screen bg-slate-950 text-slate-100 relative overflow-x-hidden">
   <!-- Top flag ribbon -->
   <div class="fixed inset-x-0 top-0 h-1 bg-gradient-to-r from-red-600 via-white to-blue-600 z-50"></div>
@@ -24,54 +154,41 @@
 
   <!-- HERO -->
   <section class="relative isolate">
-    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-blue-900/70 via-slate-900 to-slate-950"></div>
-    <div class="mx-auto max-w-7xl px-6 pt-24 pb-16 md:pt-32 md:pb-24 grid gap-10 md:grid-cols-2 md:items-center">
-      <div class="reveal">
-        <span class="inline-block mb-4 text-xs font-semibold tracking-wide uppercase bg-red-600 text-white px-3 py-1 rounded-full">DOGE STIMULUS PROGRAM</span>
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-          Secure Your <span class="text-red-500">DOGE Stimulus</span> — Built on <span class="text-blue-400">Integrity</span>, Powered by <span class="text-white">Community</span>
-        </h1>
-        <p class="mt-5 text-slate-300 text-lg max-w-xl">Fast, transparent, and people-first. Choose a tier that fits your needs and let our team guide you from application to payout.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#apply" class="px-6 py-3 rounded-2xl bg-red-600 hover:bg-red-600/90 text-white text-lg">Get Started</a>
-          <a href="#tiers" class="px-6 py-3 rounded-2xl border border-blue-500 text-blue-200 hover:bg-blue-900/20 text-lg">See Tiers</a>
-        </div>
-        <div class="mt-6 flex items-center gap-3 text-slate-400">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>No hidden fees • Transparent disbursements • Secure process</span>
-        </div>
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-blue-900/70 via-slate-900 to-slate-950"></div>
+  <div class="mx-auto max-w-7xl px-6 pt-24 pb-16 md:pt-32 md:pb-24 grid gap-10 md:grid-cols-2 md:items-center">
+    <div class="reveal">
+      <span class="inline-block mb-4 text-xs font-semibold tracking-wide uppercase bg-red-600 text-white px-3 py-1 rounded-full">DOGE STIMULUS PROGRAM</span>
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+        Secure Your <span class="text-red-500">DOGE Stimulus</span> — Built on <span class="text-blue-400">Integrity</span>, Powered by <span class="text-white">Community</span>
+      </h1>
+      <p class="mt-5 text-slate-300 text-lg max-w-xl">Fast, transparent, and people-first. Choose a tier that fits your needs and let our team guide you from application to payout.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#tiers" class="px-6 py-3 rounded-2xl bg-red-600 hover:bg-red-600/90 text-white glow-card">See Tiers</a>
+      </div>
+      <div class="mt-6 flex items-center gap-3 text-slate-400">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>No hidden fees • Transparent disbursements • Secure process</span>
       </div>
     </div>
-  </section>
-<script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
 
-<script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
+   <video controls class="rounded-2xl shadow-lg w-full glow-card max-w-2xl md:ml-12" poster="WhatsApp Image 2025-08-15 at 17.42.58_07b790b1 - Copy.jpg">
+     
+  <source src="ajproba (1).mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-<div id="impact" class="reveal mx-auto max-w-3xl px-6 my-20 relative">
-  <!-- Main card -->
-  <div class="relative rounded-3xl bg-slate-900/70 border border-slate-800 p-8 shadow-2xl text-center">
-    <div class="flex items-center justify-center gap-2 text-2xl font-bold mb-6 text-[#DC2626]">
-  Our Impact
-</div>
-
-  <ul class="mt-4 space-y-3 text-left list-disc pl-6 marker:text-[#DC2626] text-slate-200">
-    <li>Over 12,000 families and individuals have received direct relief.</li>
-    <li>Zero hidden fees—every dollar promised is a dollar delivered.</li>
-    <li>Community support and financial education provided with every check.</li>
-    <li>Fastest average payout time among all federal stimulus programs.</li>
-    <li>Recipient satisfaction rate: 98.7% (based on post-payout surveys).</li>
-    <li>Program transparency: all disbursements and statistics are published in real time.</li>
-    <li>Special outreach to rural, underserved, and veteran communities.</li>
-  </ul>
 
 
   </div>
-</div>
+</section>
+
+
+<img src="check-25.05.webp" class="check">
 
   <!-- KPI CARDS -->
 <section id="stats" class="mx-auto max-w-7xl px-6 pb-8 reveal">
     <div class="grid gap-4 md:grid-cols-3">
-      <div class="rounded-3xl bg-slate-900/70 border border-slate-800 p-6">
+      <div class="rounded-3xl bg-slate-900/70 border border-slate-800 p-6 glow-card">
         <div class="flex items-center justify-between text-base">
           <span>Total Checks Delivered</span>
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2">
@@ -82,7 +199,7 @@
         <div class="mt-2 text-3xl font-extrabold tracking-tight" style="color: #f1f5f9;">12,437</div>
         <p class="mt-1 text-sm text-slate-400">Stimulus checks sent directly to eligible Americans.</p>
       </div>
-      <div class="rounded-3xl bg-slate-900/70 border border-slate-800 p-6">
+      <div class="rounded-3xl glow-card bg-slate-900/70 border border-slate-800 p-6">
         <div class="flex items-center justify-between text-base">
           <span>Total Paid Out</span>
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2">
@@ -93,7 +210,7 @@
         <div class="mt-2 text-3xl font-extrabold tracking-tight" style="color: #f1f5f9;">$7,850,000</div>
         <p class="mt-1 text-sm text-slate-400">Funds distributed to support families, workers, and small businesses.</p>
       </div>
-      <div class="rounded-3xl bg-slate-900/70 border border-slate-800 p-6">
+      <div class="rounded-3xl glow-card bg-slate-900/70 border border-slate-800 p-6">
         <div class="flex items-center justify-between text-base">
           <span>Average Payout Time</span>
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2">
@@ -108,7 +225,37 @@
 </section>
 
 
+<vapi-widget
+  public-key="76a6b3a5-e73d-4e19-9122-411d3586ad97"
+  assistant-id="2cc712d8-6f3b-4384-a76b-10aeab8bfee7"
+  mode="voice"
+  theme="light"
+  base-bg-color="#ffffff"
+  accent-color="#cc0808"
+  cta-button-color="#ffffff"
+  cta-button-text-color="#000000"
+  border-radius="large"
+  size="full"
+  position="bottom-right"
+  title="Have a question?"
+  start-button-text="Start"
+  end-button-text="End Call"
+  cta-subtitle="Talk with a DOGE Agent"
+  chat-first-message="Hey, How can I help you today?"
+  chat-placeholder="Type your message..."
+  voice-show-transcript="true"
+  consent-required="true"
+  consent-title="Terms and conditions"
+  consent-content="By clicking "Agree," and each time I interact with this AI agent, I consent to the recording, storage, and sharing of my communications with third-party service providers, and as otherwise described in our Terms of Service."
+  consent-storage-key="vapi_widget_consent"
+></vapi-widget>
 
+<script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
+
+
+<script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
+
+<script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
   <!-- TIERS -->
   <section id="tiers" class="mx-auto max-w-7xl px-6 py-14">
     <div class="text-center mb-10 reveal">
@@ -127,7 +274,7 @@
   </div>
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
     <!-- Cards -->
-    <div class="reveal rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-6 flex flex-col justify-between">
+    <div class="glow-card rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-6 flex flex-col justify-between">
       <div>
         <div class="flex items-center justify-between">
           <div class="text-lg font-bold">Tier I. Stimulus Check</div>
@@ -136,43 +283,43 @@
         <p class="text-sm text-slate-300 mt-1">Recommended for low-income citizens.</p>
         <p class="mt-2 text-emerald-400 text-sm font-medium">25x return on your money.</p>
       </div>
-      <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $100</a>
+      <a href="https://whop.com/checkout/plan_PIvdV82pGUVoF?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $100</a>
     </div>
 
-    <div class="reveal rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-6 flex flex-col justify-between">
+    <div class="glow-card reveal rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-6 flex flex-col justify-between">
       <div>
         <div class="flex items-center justify-between">
           <div class="text-lg font-bold">Tier II. Stimulus Check</div>
         </div>
-        <p class="mt-3 text-3xl font-extrabold">Pays out $8,000</p>
+        <p class="mt-3 text-3xl font-extrabold">Pays out $6,400</p>
         <p class="text-sm text-slate-300 mt-1">Recommended for low-income citizens.</p>
         <p class="mt-2 text-emerald-400 text-sm font-medium">32x return on your money.</p>
       </div>
-      <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $250</a>
+      <a href="https://whop.com/checkout/plan_XAd1Np9LuapaY?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $200</a>
     </div>
 
-    <div class="reveal rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-6 flex flex-col justify-between">
+    <div class="glow-card  reveal rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-6 flex flex-col justify-between">
       <div>
         <div class="flex items-center justify-between">
           <div class="text-lg font-bold">Tier III. Stimulus Check</div>
         </div>
-        <p class="mt-3 text-3xl font-extrabold">Pays out $20,000</p>
+        <p class="mt-3 text-3xl font-extrabold">Pays out $12,000</p>
         <p class="text-sm text-slate-300 mt-1">Recommended for low-income citizens.</p>
         <p class="mt-2 text-emerald-400 text-sm font-medium">40x return on your money.</p>
       </div>
-      <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $500</a>
+      <a href="https://whop.com/checkout/plan_EsHeOnESlCiTV?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $300</a>
     </div>
 
-    <div class="reveal rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-6 flex flex-col justify-between">
+    <div class="glow-card  reveal rounded-3xl border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-6 flex flex-col justify-between">
       <div>
         <div class="flex items-center justify-between">
           <div class="text-lg font-bold">Tier IV. Stimulus Check</div>
         </div>
-        <p class="mt-3 text-3xl font-extrabold">Pays out $37,500</p>
+        <p class="mt-3 text-3xl font-extrabold">Pays out $20,000</p>
         <p class="text-sm text-slate-300 mt-1">Recommended for low-income citizens.</p>
         <p class="mt-2 text-emerald-400 text-sm font-medium">50x return on your money.</p>
       </div>
-      <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $750</a>
+      <a href="https://whop.com/checkout/plan_CgzNVloxHaMfa?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $400</a>
     </div>
   </div>
 </div>
@@ -188,41 +335,41 @@
         <div class="h-1 w-40 rounded-full bg-gradient-to-r backdrop-blur-xl from-red-500 to-red-700"></div>
       </div>
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="reveal rounded-3xl border backdrop-blur-xl border-slate-800 bg-slate-900/70 p-6">
+        <div class=" glow-card  reveal rounded-3xl border backdrop-blur-xl border-slate-800 bg-slate-900/70 p-6">
           <div class="flex items-center justify-between">
             <div class="text-lg font-bold">Tier I. Stimulus Check</div>
           </div>
-          <p class="mt-3 text-3xl font-extrabold">Pays out $55,000</p>
+          <p class="mt-3 text-3xl font-extrabold">Pays out $27,500</p>
           <p class="text-sm text-slate-300 mt-1">Recommended for mid-to-low-income citizens.</p>
           <p class="mt-2 text-emerald-400 text-sm font-medium">55x return on your money.</p>
-          <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $1,000</a>
+          <a href="https://whop.com/checkout/plan_TmAkbOMfMiXNI?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $500</a>
         </div>
-        <div class="reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
+        <div class=" glow-card  reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
           <div class="flex items-center justify-between">
             <div class="text-lg font-bold">Tier II. Stimulus Check</div>
           </div>
-          <p class="mt-3 text-3xl font-extrabold">Pays out $77,500</p>
+          <p class="mt-3 text-3xl font-extrabold">Pays out $40,300</p>
           <p class="text-sm text-slate-300 mt-1">Recommended for mid-to-low-income citizens.</p>
           <p class="mt-2 text-emerald-400 text-sm font-medium">62x return on your money.</p>
-          <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $1,250</a>
+          <a href="https://whop.com/checkout/plan_LouPzH2EqitYE?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $650</a>
         </div>
-        <div class="reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
+        <div class="glow-card  reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
           <div class="flex items-center justify-between">
             <div class="text-lg font-bold">Tier III. Stimulus Check</div>
           </div>
-          <p class="mt-3 text-3xl font-extrabold">Pays out $117,500</p>
+          <p class="mt-3 text-3xl font-extrabold">Pays out $53,600</p>
           <p class="text-sm text-slate-300 mt-1">Recommended for mid-to-low-income citizens.</p>
           <p class="mt-2 text-emerald-400 text-sm font-medium">67x return on your money.</p>
-          <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $1,750</a>
+          <a href="https://whop.com/checkout/plan_kKa7QaOGxzIUO?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $850</a>
         </div>
-        <div class="reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
+        <div class="glow-card  reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
           <div class="flex items-center justify-between">
             <div class="text-lg font-bold">Tier IV. Stimulus Check</div>
           </div>
-          <p class="mt-3 text-3xl font-extrabold">Pays out $150,000</p>
+          <p class="mt-3 text-3xl font-extrabold">Pays out $75,000</p>
           <p class="text-sm text-slate-300 mt-1">Recommended for mid-to-low-income citizens.</p>
           <p class="mt-2 text-emerald-400 text-sm font-medium">75x return on your money.</p>
-          <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $2,000</a>
+          <a href="https://whop.com/checkout/plan_gId83llde26nW?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $1,000</a>
         </div>
       </div>
     </div>
@@ -237,46 +384,68 @@
         <div class="h-1 w-40 rounded-full bg-gradient-to-r from-amber-400 to-amber-600"></div>
       </div>
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6 ring-2 ring-offset-2 ring-offset-slate-950 ring-amber-400">
-          <div class="flex items-center justify-between">
-            <div class="text-lg font-bold">Tier I. Stimulus Check</div>
-          </div>
-          <p class="mt-3 text-3xl font-extrabold">Pays out $200,000</p>
-          <p class="text-sm text-slate-300 mt-1">Recommended for mid-income citizens.</p>
-          <p class="mt-2 text-emerald-400 text-sm font-medium">80x return on your money.</p>
-          <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $2,500</a>
-        </div>
-        <div class="reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
+        <div class="glow-card reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
+  <div class="flex items-center justify-between">
+    <div class="text-lg font-bold">Tier I. Stimulus Check</div>
+  </div>
+  <p class="mt-3 text-3xl font-extrabold">Pays out $80,000</p>
+  <p class="text-sm text-slate-300 mt-1">Recommended for mid-income citizens.</p>
+  <p class="mt-2 text-emerald-400 text-sm font-medium">80x return on your money.</p>
+  <a href="https://whop.com/checkout/plan_qu5FLCVCWbmzD?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $1,250</a>
+</div>
+
+        <div class="glow-card reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
           <div class="flex items-center justify-between">
             <div class="text-lg font-bold">Tier II. Stimulus Check</div>
           </div>
-          <p class="mt-3 text-3xl font-extrabold">Pays out $340,000</p>
+          <p class="mt-3 text-3xl font-extrabold">Pays out $127,500</p>
           <p class="text-sm text-slate-300 mt-1">Recommended for mid-income citizens.</p>
           <p class="mt-2 text-emerald-400 text-sm font-medium">85x return on your money.</p>
-          <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $4,000</a>
+          <a href="https://whop.com/checkout/plan_Flos3oidjCny1?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $1,500</a>
         </div>
-        <div class="reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
+        <div class="glow-card reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
           <div class="flex items-center justify-between">
             <div class="text-lg font-bold">Tier III. Stimulus Check</div>
           </div>
-          <p class="mt-3 text-3xl font-extrabold">Pays out $450,000</p>
+          <p class="mt-3 text-3xl font-extrabold">Pays out $180,000</p>
           <p class="text-sm text-slate-300 mt-1">Recommended for mid-income citizens.</p>
           <p class="mt-2 text-emerald-400 text-sm font-medium">90x return on your money.</p>
-          <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $5,000</a>
+          <a href="https://whop.com/checkout/plan_nCq2hzLcu7HKe?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $2,000</a>
         </div>
-        <div class="reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
+        <div class="glow-card reveal rounded-3xl border border-slate-800 backdrop-blur-xl bg-slate-900/70 p-6">
           <div class="flex items-center justify-between">
             <div class="text-lg font-bold">Tier IV. Stimulus Check</div>
           </div>
-          <p class="mt-3 text-3xl font-extrabold">Pays out $700,000</p>
+          <p class="mt-3 text-3xl font-extrabold">Pays out $250,000</p>
           <p class="text-sm text-slate-300 mt-1">Recommended for mid-income citizens.</p>
           <p class="mt-2 text-emerald-400 text-sm font-medium">100x return on your money.</p>
-          <a href="#apply" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $7,000</a>
+          <a href="https://whop.com/checkout/plan_fU4PRnhy9Qd3X?d2c=true" class="mt-4 block text-center w-full rounded-xl px-4 py-3 bg-blue-600 hover:bg-blue-600/90">Order for $2,500</a>
         </div>
       </div>
     </div>
   </section>
 
+  <div id="impact" class="reveal mx-auto max-w-3xl px-6 my-20 relative">
+  
+  <!-- Main card -->
+  <div class="glow-card relative rounded-3xl bg-slate-900/70 border border-slate-800 p-8 shadow-2xl text-center">
+    <div class="flex items-center justify-center gap-2 text-2xl font-bold mb-6">
+  Our Impact
+</div>
+
+  <ul class="mt-4 space-y-3 text-left list-disc pl-6 marker:text-[#DC2626] text-slate-200">
+    <li>Over 12,000 families and individuals have received direct relief.</li>
+    <li>Zero hidden fees—every dollar promised is a dollar delivered.</li>
+    <li>Community support and financial education provided with every check.</li>
+    <li>Fastest average payout time among all federal stimulus programs.</li>
+    <li>Recipient satisfaction rate: 98.7% (based on post-payout surveys).</li>
+    <li>Program transparency: all disbursements and statistics are published in real time.</li>
+    <li>Special outreach to rural, underserved, and veteran communities.</li>
+  </ul>
+
+
+  </div>
+</div>
   
   <!-- FOOTER -->
   <footer class="mx-auto max-w-7xl px-6 py-10 text-slate-400">
@@ -295,26 +464,20 @@
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
     }, {threshold: .1});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    document.querySelector('a[href="#tiers"]').addEventListener('click', function(e) {
+  e.preventDefault();
+  const section = document.querySelector('#tiers');
+  const offset = -80; // adjust for your fixed header height
+  const top = section.getBoundingClientRect().top + window.scrollY + offset;
+
+  window.scrollTo({
+    top: top,
+    behavior: 'smooth'
+  });
+});
   </script>
-  <vapi-widget
-  public-key="76a6b3a5-e73d-4e19-9122-411d3586ad97"
-  assistant-id="2cc712d8-6f3b-4384-a76b-10aeab8bfee7"
-  mode="voice"
-  theme="dark"
-  base-bg-color="#000000"
-  accent-color="#14B8A6"
-  cta-button-color="#000000"
-  cta-button-text-color="#ffffff"
-  border-radius="large"
-  size="full"
-  position="bottom-right"
-  title="TALK WITH AI"
-  start-button-text="Start"
-  end-button-text="End Call"
-  chat-first-message="Hey, How can I help you today?"
-  chat-placeholder="Type your message..."
-  voice-show-transcript="false"
-  consent-required="false"
-></vapi-widget>
+
+
 </body>
 </html>
